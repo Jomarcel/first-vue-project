@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <h1>My first vue project</h1>
-
+    <h1>My first Vue project</h1>
     <div v-if="showForm">
       <AddTask @add-task="addTask" />
     </div>
@@ -39,6 +38,7 @@ export default {
       showForm: false,
     };
   },
+
   methods: {
     toggleShow() {
       this.showForm = !this.showForm;
@@ -60,6 +60,7 @@ export default {
     },
   },
   created() {
+    // console.log("hello");
     this.tasks = [
       {
         id: 1,
@@ -81,6 +82,13 @@ export default {
       },
     ];
   },
+  // computed: {
+  //   selectAll() {
+  //     this.tasks.every((task) => {
+  //       return task.reminder;
+  //     });
+  //   },
+  // },
 };
 </script>
 
