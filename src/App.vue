@@ -1,9 +1,16 @@
 <template>
   <div class="container">
     <h1>My first vue project</h1>
-    <AddTask @add-task="addTask" />
-    <Header title="Task tracker" />
-    <Button text="Add Task" color="green" />
+
+    <div v-if="showForm">
+      <AddTask @add-task="addTask" />
+    </div>
+    <Header :showAddtask="toggleShow" title="Task tracker" />
+    <Button
+      @button-click="toggleShow"
+      :text="showForm ? 'Close' : 'Show'"
+      :color="showForm ? 'green' : 'red'"
+    />
     <Tasks
       @toggle-reminder="toggleReminder"
       @delete-task="deleteTask"
@@ -29,9 +36,13 @@ export default {
   data() {
     return {
       tasks: [],
+      showForm: false,
     };
   },
   methods: {
+    toggleShow() {
+      this.showForm = !this.showForm;
+    },
     addTask(task) {
       this.tasks = [...this.tasks, task];
     },

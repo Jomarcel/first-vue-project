@@ -12,6 +12,9 @@ export default {
       type: String,
       default: "yoyo",
     },
+    showAddTask: {
+      type: Boolean,
+    },
   },
 };
 </script>
