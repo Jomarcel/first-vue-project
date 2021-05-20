@@ -3,7 +3,7 @@
     <h1>My first vue project</h1>
     <Header title="Task tracker" />
     <Button text="Add Task" color="green" />
-    <Tasks :tasks="tasks" />
+    <Tasks @delete-task="deleteTask" :tasks="tasks" />
   </div>
 </template>
 
@@ -24,6 +24,14 @@ export default {
       tasks: [],
     };
   },
+  methods: {
+    deleteTask(id) {
+      console.log("id", id);
+      if (confirm("are you sure?")) {
+        this.tasks = this.tasks.filter((task) => task.id !== id);
+      }
+    },
+  },
   created() {
     this.tasks = [
       {
@@ -36,7 +44,7 @@ export default {
         id: 2,
         text: "Some appointment",
         day: "Arpil 5th at 11:00-",
-        reminder: true,
+        reminder: false,
       },
       {
         id: 3,
