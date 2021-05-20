@@ -1,9 +1,14 @@
 <template>
   <div class="container">
     <h1>My first vue project</h1>
+    <AddTask @add-task="addTask" />
     <Header title="Task tracker" />
     <Button text="Add Task" color="green" />
-    <Tasks @delete-task="deleteTask" :tasks="tasks" />
+    <Tasks
+      @toggle-reminder="toggleReminder"
+      @delete-task="deleteTask"
+      :tasks="tasks"
+    />
   </div>
 </template>
 
@@ -11,6 +16,7 @@
 import Header from "./components/Header";
 import Button from "./components/Button";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 
 export default {
   name: "App",
@@ -18,6 +24,7 @@ export default {
     Header,
     Button,
     Tasks,
+    AddTask,
   },
   data() {
     return {
@@ -25,11 +32,20 @@ export default {
     };
   },
   methods: {
+    addTask(task) {
+      this.tasks = [...this.tasks, task];
+    },
     deleteTask(id) {
       console.log("id", id);
       if (confirm("are you sure?")) {
         this.tasks = this.tasks.filter((task) => task.id !== id);
       }
+    },
+
+    toggleReminder(id) {
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
     },
   },
   created() {
